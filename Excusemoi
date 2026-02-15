@@ -3,58 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carte d'excuse</title>
+<title>Pour Toi</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+--rose-principal:#E91E63;
+--rose-doux:#F8BBD0;
+--rose-lumineux:#FF4FA3;
+}
 
 html,body{
 height:100%;
 width:100%;
 font-family:'Cormorant Garamond',serif;
-background:#0a0a0a;
+background:radial-gradient(circle at top,#2a0f1f,#0a0a0a 70%);
 overflow:hidden;
+color:white;
 }
 
+/* CONTAINER */
 .card-container{
 height:100%;
-width:100%;
 display:flex;
 align-items:center;
 justify-content:center;
-background:linear-gradient(135deg,#0a0a0a,#1a1a1a);
 position:relative;
 overflow:hidden;
 }
 
-/* ===== FLOATING ELEMENTS ===== */
-.floating-element{
+/* FLOATING PETALS */
+.floating{
 position:absolute;
-bottom:-60px;
-pointer-events:none;
-opacity:.25;
+bottom:-50px;
+opacity:.2;
 animation:floatUp linear forwards;
-z-index:1;
+pointer-events:none;
 }
 
 @keyframes floatUp{
-0%{
-transform:translateY(0) rotate(0deg);
-opacity:0;
-}
-10%{opacity:.25;}
-90%{opacity:.25;}
-100%{
-transform:translateY(-120vh) rotate(360deg);
-opacity:0;
-}
+0%{transform:translateY(0) rotate(0);opacity:0}
+10%{opacity:.25}
+90%{opacity:.25}
+100%{transform:translateY(-120vh) rotate(360deg);opacity:0}
 }
 
-/* ===== CONTENT ===== */
-.birthday-message,
-.photos-section{
+/* SECTIONS */
+.section{
 position:absolute;
 inset:0;
 display:flex;
@@ -63,30 +61,19 @@ align-items:center;
 justify-content:center;
 text-align:center;
 padding:2rem;
-transition:opacity .8s ease, transform .8s ease;
-z-index:5;
+transition:opacity 1s ease, transform 1s ease;
 }
 
-.birthday-message.hide{
+.hidden{
 opacity:0;
 pointer-events:none;
-transform:scale(.96);
+transform:translateY(20px);
 }
 
-.photos-section{
-opacity:0;
-pointer-events:none;
-overflow-y:auto;
-}
-
-.photos-section.show{
-opacity:1;
-pointer-events:auto;
-}
-
-.age-badge{
-border:1px solid rgba(212,175,55,.5);
-color:#D4AF37;
+/* HEADER */
+.name-badge{
+border:1px solid rgba(233,30,99,.6);
+color:var(--rose-principal);
 padding:.6rem 2rem;
 letter-spacing:3px;
 margin-bottom:2.5rem;
@@ -97,60 +84,68 @@ font-size:4.5rem;
 font-weight:300;
 letter-spacing:8px;
 text-transform:uppercase;
-color:#D4AF37;
+color:var(--rose-principal);
+text-shadow:0 0 15px rgba(233,30,99,.5);
 }
 
 h2{
-font-size:3.5rem;
+font-size:3.2rem;
 font-weight:300;
 font-style:italic;
-color:rgba(255,255,255,.9);
+color:var(--rose-doux);
 margin-top:1rem;
 }
 
-.intro-text{
+.intro{
 margin-top:2.5rem;
 letter-spacing:2px;
 text-transform:uppercase;
 color:rgba(255,255,255,.6);
 }
 
-.elegant-button{
+button{
 margin-top:3.5rem;
 padding:1rem 2.5rem;
 background:transparent;
-border:1px solid rgba(212,175,55,.6);
-color:#D4AF37;
+border:1px solid rgba(233,30,99,.7);
+color:var(--rose-principal);
 letter-spacing:2px;
 cursor:pointer;
+transition:.4s ease;
 }
 
+button:hover{
+background:rgba(233,30,99,.1);
+box-shadow:0 0 20px rgba(233,30,99,.4);
+}
+
+/* PHOTOS */
 .photos-container{
 display:flex;
-gap:2.5rem;
-margin:4rem 0;
+gap:3rem;
 flex-wrap:wrap;
 justify-content:center;
+margin-bottom:4rem;
 }
 
 .photo-wrapper{
 display:flex;
 flex-direction:column;
 align-items:center;
-max-width:220px;
 cursor:pointer;
 }
 
 .photo-frame{
 width:220px;
 height:220px;
-border:2px solid rgba(212,175,55,.4);
-background:#111;
+border:2px solid rgba(233,30,99,.4);
 display:flex;
 align-items:center;
 justify-content:center;
 overflow:hidden;
-box-shadow:0 8px 32px rgba(212,175,55,.3);
+background:#111;
+box-shadow:0 0 25px rgba(233,30,99,.3);
+transition:.4s ease;
 }
 
 .photo-frame img{
@@ -161,14 +156,12 @@ object-fit:contain;
 
 .photo-caption{
 margin-top:1rem;
-font-size:.95rem;
-line-height:1.6;
-color:rgba(255,255,255,.75);
 font-style:italic;
+color:rgba(255,255,255,.75);
 opacity:0;
 max-height:0;
 overflow:hidden;
-transition:opacity .4s ease, max-height .4s ease;
+transition:.5s ease;
 }
 
 .photo-wrapper.show .photo-caption{
@@ -176,18 +169,26 @@ opacity:1;
 max-height:200px;
 }
 
+/* MESSAGE CARD */
 .message-card{
-max-width:1100px;
+max-width:900px;
 max-height:60vh;
 overflow-y:auto;
-padding:4rem 3.5rem;
-background:rgba(26,26,26,.85);
-border:1px solid rgba(212,175,55,.25);
-color:rgba(255,255,255,.85);
+padding:4rem 3rem;
+background:rgba(26,10,20,.85);
+border:1px solid rgba(233,30,99,.25);
 font-size:1.4rem;
 line-height:2;
 font-style:italic;
-margin-bottom:4rem;
+margin-bottom:3rem;
+box-shadow:0 0 40px rgba(233,30,99,.15);
+}
+
+.signature{
+font-family:'Great Vibes',cursive;
+font-size:2.5rem;
+color:var(--rose-doux);
+margin-top:2rem;
 }
 </style>
 </head>
@@ -196,110 +197,115 @@ margin-bottom:4rem;
 
 <div class="card-container">
 
-<div class="birthday-message" id="birthdayMessage">
-  <div class="age-badge">Kathleen Joelle Orius</div>
-  <h1>Pardonne moi</h1>
-  <h2>My GumboLove</h2>
-  <div class="intro-text">Un site spécial pour toi</div>
-  <button class="elegant-button" id="revealButton">Découvrir plus</button>
+<!-- INTRO -->
+<div class="section" id="introSection">
+<div class="name-badge">Kathleen Joelle Orius</div>
+<h1 id="title"></h1>
+<h2>My GumboLove</h2>
+<div class="intro">Un site créé juste pour toi</div>
+<button id="revealBtn">Découvrir</button>
 </div>
 
-<div class="photos-section" id="photosSection">
+<!-- MAIN CONTENT -->
+<div class="section hidden" id="mainSection">
 
-  <div class="photos-container">
+<div class="photos-container">
 
-    <div class="photo-wrapper">
-      <div class="photo-frame">
-        <img src="https://th3realest.github.io/birthday-love/photo1.jpg">
-      </div>
-      <div class="photo-caption">
-        Avec toi, tout a plus de sens.
-      </div>
-    </div>
+<div class="photo-wrapper">
+<div class="photo-frame">
+<img src="https://th3realest.github.io/birthday-love/photo1.jpg">
+</div>
+<div class="photo-caption">Avec toi, tout a plus de sens.</div>
+</div>
 
-    <div class="photo-wrapper">
-      <div class="photo-frame">
-        <img src="https://github.com/Gandi-007/LoveStory/blob/main/IMG_5049.JPG">
-      </div>
-      <div class="photo-caption">
-        Mon humain préféré.
-      </div>
-    </div>
+<div class="photo-wrapper">
+<div class="photo-frame">
+<img src="https://raw.githubusercontent.com/Gandi-007/LoveStory/main/IMG_5049.JPG">
+</div>
+<div class="photo-caption">Mon humain préféré.</div>
+</div>
 
-    <div class="photo-wrapper">
-      <div class="photo-frame">
-        <img src="https://github.com/Gandi-007/LoveStory/blob/main/IMG_5071.JPG">
-      </div>
-      <div class="photo-caption">
-        Même dans la douleur, tu es restée sublime, forte et lumineuse.
-      </div>
-    </div>
+<div class="photo-wrapper">
+<div class="photo-frame">
+<img src="https://raw.githubusercontent.com/Gandi-007/LoveStory/main/IMG_5071.JPG">
+</div>
+<div class="photo-caption">Même dans la douleur, tu es restée sublime, forte et lumineuse.</div>
+</div>
 
-  </div>
+</div>
 
-  <div class="message-card">
-Je t’aime profondément. Plus que je ne sais l’exprimer. Ta présence apaise mes tempêtes, ton sourire illumine mes journées, et ton amour me rend meilleur. Avec toi, j’apprends, je grandis, je comprends ce que signifie vraiment aimer quelqu’un.
+<div class="message-card">
+Je t’aime profondément. Plus que je ne sais l’exprimer.
 
-Je ne suis pas parfait, mais je te promets de toujours faire des efforts, de toujours te choisir, de toujours protéger notre histoire. Parce que toi et moi, ce n’est pas juste une relation. C’est un lien précieux, fragile et fort à la fois. Pardonne moi Kathleen pour la douleur que j'ai pu te causer.
-    
-    Tu me manques.
-  </div>
+Ta présence apaise mes tempêtes. Ton sourire illumine mes journées. Avec toi, j’ai compris que l’amour n’est pas un mot… mais un engagement.
+
+Je ne veux pas seulement te dire que je vais faire mieux. Je veux te le prouver. Un jour à la fois. Avec constance. Avec respect.
+
+Parce que ce que nous avons est rare.
+
+Pardonne-moi pour la douleur que j’ai pu te causer.
+
+Tu me manques.
+
+<div class="signature">— Gandi</div>
+</div>
 
 </div>
 </div>
 
-<audio id="excuseAudio" src="https://youtu.be/i2wmKcBm4Ik?si=05eL1EYqKyUEVDLm"></audio>
+<!-- AUDIO (METTRE UN .MP3 ICI) -->
+<audio id="bgMusic" src="musique.mp3"></audio>
 
 <script>
-/* ===== AUDIO ===== */
-const revealButton = document.getElementById('revealButton');
-const excuseMessage = document.getElementById('excuseMessage');
-const photosSection = document.getElementById('photosSection');
-const audio = document.getElementById('excuseAudio');
+const intro=document.getElementById("introSection");
+const main=document.getElementById("mainSection");
+const btn=document.getElementById("revealBtn");
+const music=document.getElementById("bgMusic");
 
-let audioUnlocked=false;
-let ctx;
-
-function unlockAudio(){
-  if(audioUnlocked) return;
-  ctx=new (window.AudioContext||window.webkitAudioContext)();
-  const source=ctx.createMediaElementSource(audio);
-  source.connect(ctx.destination);
-  audio.play();
-  audioUnlocked=true;
+/* TYPEWRITER */
+function typeWriter(text,element,speed){
+let i=0;
+function typing(){
+if(i<text.length){
+element.innerHTML+=text.charAt(i);
+i++;
+setTimeout(typing,speed);
+}
+}
+typing();
 }
 
-revealButton.addEventListener('click',()=>{
-  birthdayMessage.classList.add('hide');
-  photosSection.classList.add('show');
-  unlockAudio();
+typeWriter("Pardonne-moi",document.getElementById("title"),90);
+
+/* REVEAL */
+btn.addEventListener("click",()=>{
+intro.classList.add("hidden");
+setTimeout(()=>{
+main.classList.remove("hidden");
+},800);
+music.play();
 });
 
-/* ===== PHOTO CAPTIONS ===== */
-document.querySelectorAll('.photo-wrapper').forEach(photo=>{
-  photo.addEventListener('click',()=>{
-    photo.classList.toggle('show');
-  });
+/* PHOTO CAPTION */
+document.querySelectorAll(".photo-wrapper").forEach(p=>{
+p.addEventListener("click",()=>{
+p.classList.toggle("show");
+});
 });
 
-/* ===== FLOATING BACKGROUND ===== */
-const floatingIcons=['🌹','❤️','✨'];
-
-function createFloating(){
-  const el=document.createElement('div');
-  el.className='floating-element';
-  el.textContent=floatingIcons[Math.floor(Math.random()*floatingIcons.length)];
-  el.style.left=Math.random()*100+'%';
-  el.style.fontSize=(1.2+Math.random()*1.6)+'rem';
-  el.style.animationDuration=(14+Math.random()*10)+'s';
-  document.querySelector('.card-container').appendChild(el);
-  setTimeout(()=>el.remove(),26000);
+/* FLOATING PETALS */
+function createPetal(){
+const el=document.createElement("div");
+el.className="floating";
+el.textContent="🌸";
+el.style.left=Math.random()*100+"%";
+el.style.fontSize=(1+Math.random()*1.5)+"rem";
+el.style.animationDuration=(14+Math.random()*10)+"s";
+document.querySelector(".card-container").appendChild(el);
+setTimeout(()=>el.remove(),26000);
 }
 
-setInterval(createFloating,900);
-for(let i=0;i<18;i++){
-  setTimeout(createFloating,i*250);
-}
+setInterval(createPetal,1000);
 </script>
 
 </body>
