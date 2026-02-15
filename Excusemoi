@@ -254,7 +254,7 @@ Tu me manques.
 </div>
 
 <!-- AUDIO (METTRE UN .MP3 ICI) -->
-<audio id="bgMusic" src="musique.mp3"></audio>
+<audio id="bgMusic" src="https://github.com/Gandi-007/LoveStory/blob/main/Excusemoi"></audio>
 
 <script>
 const intro=document.getElementById("introSection");
